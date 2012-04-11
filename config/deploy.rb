@@ -19,22 +19,25 @@ set :scm, :git
 set :stages,        %w(staging production)
 set :default_stage, "production"
 
-task :tail, :roles => :app do
-  run "tail -f #{release_path}/log/#{rails_env}.log"
+task :tail_log, :roles => :app do
+  run "tail -n 100 -f #{current_path}/log/#{rails_env}.log"
 end
 
 namespace :deploy do
   task :start do ; end
   task :stop do ; end
   task :symlink_shared, :roles => [:app] do
-    config_files = [:database, :builder, :airbrake]
+    config_files = [:database, :builder, :fog, :exceptional, :newrelic]
     symlink_hash = {}
     config_files.each do |fname|
       symlink_hash["#{shared_path}/config/#{fname}.yml"] = "#{release_path}/config/#{fname}.yml"
     end
     symlink_hash.each do |source, target|
-      run "cp #{source} #{target}"
+      run "ln -s #{source} #{target}"
     end
+  end
+  task :restart, :roles => :app, :except => { :no_release => true } do
+    run "touch #{current_path}/tmp/restart.txt"
   end
 end
 
@@ -43,6 +46,3 @@ before "deploy:migrate", "deploy:symlink_shared"
 after "deploy", "deploy:cleanup"
 after "deploy", "deploy:symlink_shared"
 after "deploy:migrations", "deploy:cleanup"
-
-        require './config/boot'
-        require 'airbrake/capistrano'

@@ -6,5 +6,8 @@ tmp/
 config/database.yml
 config/proxymesh.yml
 config/builder.yml
-config/airbrake.yml
+config/exceptional.yml
+config/fog.yml
+config/newrelic.yml
 lib/tasks/import.rake
+config/deploy/*.rb

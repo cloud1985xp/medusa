@@ -31,9 +31,6 @@ GEM
     activesupport (3.1.0)
       multi_json (~> 1.0)
     addressable (2.2.6)
-    airbrake (3.0.8)
-      activesupport
-      builder
     ansi (1.3.0)
     arel (2.2.1)
     bcrypt-ruby (3.0.1)
@@ -56,6 +53,9 @@ GEM
     domainatrix (0.0.10)
       addressable
     erubis (2.7.0)
+    exceptional (2.0.32)
+      rack
+    excon (0.9.4)
     execjs (1.2.6)
       multi_json (~> 1.0)
     factory_girl (2.1.2)
@@ -63,6 +63,17 @@ GEM
     factory_girl_rails (1.2.0)
       factory_girl (~> 2.1.0)
       railties (>= 3.0.0)
+    fog (1.1.2)
+      builder
+      excon (~> 0.9.0)
+      formatador (~> 0.2.0)
+      mime-types
+      multi_json (~> 1.0.3)
+      net-scp (~> 1.0.4)
+      net-ssh (>= 2.1.3)
+      nokogiri (~> 1.5.0)
+      ruby-hmac
+    formatador (0.2.1)
     highline (1.6.2)
     hike (1.2.1)
     i18n (0.6.0)
@@ -85,6 +96,8 @@ GEM
     net-ssh (2.2.1)
     net-ssh-gateway (1.1.0)
       net-ssh (>= 1.99.1)
+    newrelic_rpm (3.3.0)
+    nokogiri (1.5.0)
     polyglot (0.3.2)
     rack (1.3.3)
     rack-cache (1.0.3)
@@ -127,6 +140,7 @@ GEM
       activesupport (~> 3.0)
       railties (~> 3.0)
       rspec (~> 2.6.0)
+    ruby-hmac (0.4.0)
     sass (3.1.7)
     sass-rails (3.1.2)
       actionpack (~> 3.1.0)
@@ -161,15 +175,17 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  airbrake
   capistrano
   coffee-rails (~> 3.1.0)
   domainatrix
+  exceptional
   execjs
   factory_girl_rails
+  fog
   jquery-rails
   json
   mysql2
+  newrelic_rpm
   rails (= 3.1.0)
   rest-client
   rspec
